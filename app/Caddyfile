@@ -1,0 +1,61 @@
+{
+  auto_https off
+  admin off
+}
+
+:5173 {
+  root * /app/dist
+
+  encode gzip
+
+  log {
+    output stdout
+    format console {
+      time_format iso8601
+      level_format color
+    }
+    level "INFO"
+  }
+
+  header {
+    X-Frame-Options "SAMEORIGIN"
+    X-XSS-Protection "1;mode=block"
+    Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate"
+    X-Content-Type-Options "nosniff"
+    Strict-Transport-Security "max-age=31536000"
+    Content-Security-Policy "
+      base-uri 'self';
+      connect-src 'self' {$VITE_BACKEND_API} https://*.auth0.com/;
+      default-src 'self';
+      font-src 'self';
+      frame-src 'self';
+      img-src 'self';
+      manifest-src 'self';
+      media-src 'self';
+      object-src 'none';
+      script-src 'unsafe-inline' 'unsafe-eval' 'report-sample' 'self' https://*.cloudfront.net;
+      style-src 'unsafe-inline' 'report-sample' 'self' https://cdn.jsdelivr.net/ https://fonts.googleapis.com;
+      worker-src 'none';
+    "
+    Referrer-Policy "same-origin"
+  }
+
+  handle /env.js {
+    header Content-Type "text/javascript"
+    respond `window.config = {"VITE_BACKEND_API":"{$VITE_BACKEND_API}","VITE_BUILD":"{$VITE_BUILD}"};`
+  }
+
+  handle /favicon.ico {
+    file_server
+  }
+
+  file_server
+
+  handle_errors {
+    @404 {
+      expression {http.error.status_code} == 404
+    }
+    rewrite @404 /
+    file_server
+  }
+}

@@ -1,0 +1,216 @@
+@import 'tailwindcss';
+
+/* Editor Container */
+.editor-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  flex-wrap: wrap;
+}
+
+.toolbar-item {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.toolbar-item:hover {
+  background-color: #f1f3f4;
+  border-color: #999;
+}
+
+.toolbar-item.active {
+  background-color: #4285f4;
+  color: white;
+  border-color: #4285f4;
+}
+
+.toolbar-item select {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: #ddd;
+  margin: 0 4px;
+}
+
+/* Editor Content Area */
+.editor-inner {
+  position: relative;
+  background-color: white;
+}
+
+.editor-input {
+  min-height: 300px;
+  padding: 20px;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.editor-placeholder {
+  color: #999;
+  font-size: 16px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Text Formatting */
+.editor-text-bold {
+  font-weight: bold;
+}
+
+.editor-text-italic {
+  font-style: italic;
+}
+
+.editor-text-underline {
+  text-decoration: underline;
+}
+
+.editor-text-strikethrough {
+  text-decoration: line-through;
+}
+
+.editor-text-code {
+  background-color: #f1f3f4;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+/* Headings */
+.editor-heading-h1 {
+  font-size: 2.2em;
+  font-weight: bold;
+  margin: 20px 0 16px 0;
+  color: #1a1a1a;
+}
+
+.editor-heading-h2 {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin: 18px 0 14px 0;
+  color: #1a1a1a;
+}
+
+.editor-heading-h3 {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin: 16px 0 12px 0;
+  color: #1a1a1a;
+}
+
+/* Paragraphs */
+.editor-paragraph {
+  margin: 12px 0;
+}
+
+/* Lists */
+.editor-list-ol {
+  padding-left: 24px;
+  margin: 12px 0;
+}
+
+.editor-list-ul {
+  padding-left: 24px;
+  margin: 12px 0;
+}
+
+.editor-listitem {
+  margin: 4px 0;
+}
+
+/* Quotes */
+.editor-quote {
+  border-left: 4px solid #4285f4;
+  padding-left: 16px;
+  margin: 16px 0;
+  font-style: italic;
+  color: #666;
+  background-color: #f8f9fa;
+  padding: 12px 16px;
+  border-radius: 4px;
+}
+
+/* Code blocks */
+.editor-code {
+  background-color: #f8f8f8;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Focus state */
+.editor-input:focus {
+  outline: none;
+}
+
+.editor-container:focus-within {
+  border-color: #4285f4;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .editor-container {
+    margin: 10px;
+    border-radius: 4px;
+  }
+
+  .toolbar {
+    padding: 8px 12px;
+    gap: 4px;
+  }
+
+  .toolbar-item {
+    padding: 4px 8px;
+    font-size: 13px;
+  }
+
+  .editor-input {
+    padding: 16px;
+    font-size: 15px;
+  }
+
+  .editor-placeholder {
+    top: 16px;
+    left: 16px;
+    font-size: 15px;
+  }
+}
