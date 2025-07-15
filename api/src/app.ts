@@ -6,7 +6,6 @@ import { config } from './config/config';
 import { errorHandler } from './middleware/errorHandler';
 import { authRoutes } from './routes/authRoutes';
 import { userRoutes } from './routes/userRoutes';
-import { postRoutes } from './routes/postRoutes';
 import accountRoutes from './routes/accountRoutes';
 import creditCardRoutes from './routes/creditCardRoutes';
 import categoryRoutes from './routes/categoryRoutes';
@@ -35,7 +34,6 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/posts', postRoutes);
 app.use('/api/accounts', accountRoutes);
 app.use('/api/credit-cards', creditCardRoutes);
 app.use('/api/categories', categoryRoutes);

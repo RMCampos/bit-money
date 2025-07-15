@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 
 CREATE TABLE IF NOT EXISTS accounts (
-  id            SERIAL PRIMARY KEY,
+  id            SERIAL,
   user_id       INTEGER,
   name          VARCHAR(100) NOT NULL,
   current_value DECIMAL(10, 2) NOT NULL DEFAULT 0.00,

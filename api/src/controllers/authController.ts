@@ -15,11 +15,6 @@ import { CreateUserData, LoginData } from '../types';
  * - First name and last name must be less than 100 characters.
  */
 export const registerValidation = [
-  body('username')
-    .isLength({ min: 3, max: 50 })
-    .withMessage('Username must be between 3 and 50 characters')
-    .matches(/^[a-zA-Z0-9_]+$/)
-    .withMessage('Username can only contain letters, numbers, and underscores'),
   body('email')
     .isEmail()
     .withMessage('Please provide a valid email')
@@ -82,17 +77,10 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const existingUsername = await UserModel.findByUsername(userData.username);
-    if (existingUsername) {
-      res.status(409).json({ error: 'Username already taken' });
-      return;
-    }
-
     const user = await UserModel.create(userData);
     const token = generateToken({
       userId: user.id,
       email: user.email,
-      username: user.username,
       firstName: user.firstName,
       lastName: user.lastName
     });
@@ -101,13 +89,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       message: 'User registered successfully',
       user: {
         id: user.id,
-        username: user.username,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        bio: user.bio,
-        avatarUrl: user.avatarUrl,
-        isVerified: user.isVerified
       },
       token
     });
@@ -152,7 +136,6 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     const token = generateToken({
       userId: user.id,
       email: user.email,
-      username: user.username,
       firstName: user.firstName,
       lastName: user.lastName
     });
@@ -161,13 +144,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       message: 'Login successful',
       user: {
         id: user.id,
-        username: user.username,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        bio: user.bio,
-        avatarUrl: user.avatarUrl,
-        isVerified: user.isVerified
       },
       token
     });
@@ -193,9 +172,6 @@ export const me = async (req: any, res: Response): Promise<void> => {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      bio: user.bio,
-      avatarUrl: user.avatarUrl,
-      isVerified: user.isVerified
     });
   } catch (error) {
     console.error('Me endpoint error:', error);
