@@ -2,7 +2,9 @@ import { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { UserModel } from '../models/User';
 import { AuthRequest } from '../types';
-import { AccountModel } from '../models/Accounts';
+import { AccountModel } from '../models/Account';
+import { CreditCardModel } from './creditCardsController';
+import { off } from 'process';
 
 /**
  * Validation rules for updating user profile.
@@ -133,5 +135,41 @@ export const getUserAccounts = async (req: Request, res: Response): Promise<void
   } catch (error) {
     console.error('Get user accounts error:', error);
     res.status(500).json({ error: 'Failed to get user accounts' });
+  }
+};
+
+export const getUserCreditCards = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const userId = parseInt(id);
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = Math.min(parseInt(req.query.limit as string) || 20, 50);
+    const offset = (page - 1) * limit;
+
+    if (isNaN(userId)) {
+      res.status(400).json({ error: 'Invalid user ID' });
+      return;
+    }
+
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    const creditCards = await CreditCardModel.findByUserId(userId, limit, offset);
+
+    // include pagination if needed
+    res.json({
+      creditCards,
+      pagination: {
+        page,
+        limit,
+        hasMore: creditCards.length === limit
+      }
+    });
+  } catch (error) {
+    console.error('Get user credit cards error:', error);
+    res.status(500).json({ error: 'Failed to get user credit cards' });
   }
 };

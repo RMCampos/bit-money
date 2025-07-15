@@ -1,0 +1,11 @@
+meta {
+  name: Credit Cards By User ID
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8080/api/users/1/credit-cards
+  body: none
+  auth: inherit
+}
