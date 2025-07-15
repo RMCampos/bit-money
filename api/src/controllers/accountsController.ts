@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { body, validationResult } from 'express-validator';
-import { pool } from '../config/database';
-import { Account, CreateAccountData, UpdateAccountData } from '../types';
+import { CreateAccountData, UpdateAccountData } from '../types';
 import { AuthRequest } from '../types';
 import { AccountModel } from '../models/Account';
 

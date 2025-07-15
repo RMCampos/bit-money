@@ -1,0 +1,20 @@
+meta {
+  name: Update Credit Card
+  type: http
+  seq: 9
+}
+
+post {
+  url: http://localhost:8080/api/credit-cards
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Visa Updated",
+    "limitValue": 3000,
+    "dueDate": "2025-08-10T23:59:59.999Z",
+    "closingDate": "2025-08-04T23:59:59.999Z"
+  }
+}
