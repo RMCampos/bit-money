@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255) NOT NULL,
   first_name    VARCHAR(100) NOT NULL,
   last_name     VARCHAR(100) NOT NULL,
-  created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at    TIMESTAMP NULL DEFAULT NULL,
+  updated_at    TIMESTAMP NULL DEFAULT NULL,
   CONSTRAINT users_pk PRIMARY KEY (id),
   CONSTRAINT users_email_unique UNIQUE (email)
 );
@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS accounts (
   user_id       INTEGER,
   name          VARCHAR(100) NOT NULL,
   current_value DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-  created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at    TIMESTAMP NULL DEFAULT NULL,
+  updated_at    TIMESTAMP NULL DEFAULT NULL,
   CONSTRAINT accounts_pk PRIMARY KEY (id),
   CONSTRAINT accounts_user_fk FOREIGN KEY (user_id) REFERENCES users(id)
 );
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS credit_cards (
   due_date      DATE NOT NULL,
   closing_date  DATE NOT NULL,
   paid          BOOLEAN DEFAULT FALSE,
-  created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at    TIMESTAMP NULL DEFAULT NULL,
+  updated_at    TIMESTAMP NULL DEFAULT NULL,
   CONSTRAINT credit_cards_pk PRIMARY KEY (id),
   CONSTRAINT credit_cards_user_fk FOREIGN KEY (user_id) REFERENCES users(id)
 );
@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS categories (
   name            VARCHAR(100) NOT NULL,
   account_type    VARCHAR(1) NOT NULL, -- 'E' for expense, 'I' for income
   display_at_home BOOLEAN DEFAULT FALSE,
-  created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at      TIMESTAMP NULL DEFAULT NULL,
+  updated_at      TIMESTAMP NULL DEFAULT NULL,
   CONSTRAINT categories_pk PRIMARY KEY (id),
   CONSTRAINT categories_name_unique UNIQUE (name),
   CONSTRAINT categories_user_fk FOREIGN KEY (user_id) REFERENCES users(id)
@@ -71,8 +71,8 @@ CREATE TABLE IF NOT EXISTS transactions (
   -- transfer
   transfer_account_id INTEGER,
 
-  created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at       TIMESTAMP NULL DEFAULT NULL,
+  updated_at       TIMESTAMP NULL DEFAULT NULL,
   CONSTRAINT transactions_pk PRIMARY KEY (id),
   CONSTRAINT transactions_user_fk FOREIGN KEY (user_id) REFERENCES users(id),
   CONSTRAINT transactions_account_fk FOREIGN KEY (account_id) REFERENCES accounts(id),
