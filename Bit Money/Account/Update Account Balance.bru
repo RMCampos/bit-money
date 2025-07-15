@@ -1,0 +1,17 @@
+meta {
+  name: Update Account Balance
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:8080/api/accounts/1/balance
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "amount": -1
+  }
+}

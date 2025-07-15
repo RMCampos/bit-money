@@ -1,0 +1,11 @@
+meta {
+  name: Delete Account By ID
+  type: http
+  seq: 7
+}
+
+delete {
+  url: http://localhost:8080/api/accounts/1
+  body: json
+  auth: inherit
+}
